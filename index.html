@@ -283,30 +283,6 @@ Hexo-theme-snail is a succinct hexo theme. It has two colors, light and star, th
     sidebar-container
 ">
     
-        
-<!--
-<h5>SEARCH</h5>
-<div class="search-article" class="tags">
-	<input id="search-kw" type="text" name="search_article" placeholder="Enter keywords for search" />
-	<div class="search-img">
-		<img 
-			src="/img/search.png" 
-			alt="search" 
-			onMouseOver="this.src='/img/search-focus.png'" 
-			onMouseOut="this.src='/img/search.png'"/>
-	</div>
-</div>-->
-
-<h5>SEARCH</h5>
-<div id="site_search">
-	<div class="form-group">
-		<input type="text" id="local-search-input" name="q" results="0" placeholder="search" class="st-search-input st-default-search-input form-control"/>
-	</div>  
-	<div id="local-search-result"></div>
-</div>
-
-        <hr>
-    
         <!-- Featured Tags -->
 
 <section>
@@ -376,34 +352,6 @@ Hexo-theme-snail is a succinct hexo theme. It has two colors, light and star, th
 </section>
         <hr>
     
-        
-  <h5>VISITORS</h5>
-  <div class="widget">
-    <span>
-    	Viewed <b><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times
-	</span>
-	<br/>
-	<span>
-		<b><i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Visitors In Total
-	</span>
-  </div>
-
-        <hr>
-    
-        
-  <h5>RECENT POSTS</h5>
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2019/11/01/Hexo-Theme-Snail/">Hexo-Theme-Snail</a>
-        </li>
-      
-    </ul>
-  </div>
-
-        <hr>
-    
         <!-- Friends Blog -->
 
 <h5>FRIENDS</h5>
@@ -413,14 +361,6 @@ Hexo-theme-snail is a succinct hexo theme. It has two colors, light and star, th
         <li><a href="https://master-tan.github.io/" target="_blank">Tan&#39;s Blog</a></li>
     
 </ul>
-
-        <hr>
-    
-        
-    <h5>ARCHIVES</h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">1</span></li></ul>
-    </div>
 
         <hr>
     
@@ -583,15 +523,6 @@ Hexo-theme-snail is a succinct hexo theme. It has two colors, light and star, th
 
 <!-- Search -->
 
-    <script type="text/javascript">      
-        var search_path = "search.xml";
-        if (search_path.length == 0) {
-            search_path = "search.xml";
-        }
-    var path = "/" + search_path;
-    searchFunc(path, 'local-search-input', 'local-search-result');
-    </script>
-
 
 <!-- busuanzi -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -611,6 +542,21 @@ Hexo-theme-snail is a succinct hexo theme. It has two colors, light and star, th
     
         <script src="/js/ribbonDynamic.js"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>

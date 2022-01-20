@@ -208,7 +208,7 @@
     <!-- Main Content -->
     
 <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/img/404-bg.jpg')">
+<header class="intro-header" >
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
@@ -366,15 +366,6 @@
 
 <!-- Search -->
 
-    <script type="text/javascript">      
-        var search_path = "search.xml";
-        if (search_path.length == 0) {
-            search_path = "search.xml";
-        }
-    var path = "/" + search_path;
-    searchFunc(path, 'local-search-input', 'local-search-result');
-    </script>
-
 
 <!-- busuanzi -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -394,6 +385,21 @@
     
         <script src="/js/ribbonDynamic.js"></script>
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 
 </html>
