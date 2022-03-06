@@ -245,7 +245,7 @@
 <li>变量类型<ul>
 <li>基本类型<ul>
 <li>整型：$char、int、unsigned\space int、long\space long$</li>
-<li>浮点型：$$float、double$$</li>
+<li>浮点型：$float、double$</li>
 </ul>
 </li>
 <li>复合类型：$struct、union、enum$</li>
@@ -255,10 +255,10 @@
 </li>
 <li>函数类型</li>
 <li>$void$ 类型</li>
-<li>自定义类型：$typedef$</li>
+<li>自定义类型：$typedef$ </li>
 </ul>
 <h2 id="内存与地址"><a href="#内存与地址" class="headerlink" title="内存与地址"></a>内存与地址</h2><p>任何变量和函数都能以一定的形式存储在内存中，对于内存中的每一个字节，都有一个地址与之对应（按字节编址）。变量就是存储其中的数据，函数则会存储函数入口、出口、参数、本地变量、要执行的语句等等。</p>
-<h3 id="内存空间"><a href="#内存空间" class="headerlink" title="内存空间"></a>内存空间</h3><p><img src="/.%5CCP-Mem-Space.svg"></p>
+<h3 id="内存空间"><a href="#内存空间" class="headerlink" title="内存空间"></a>内存空间</h3><p><img src=".\2022-03-06-指针和内存\CP-Mem-Space.svg" alt=""></p>
 <h3 id="内存管理机制"><a href="#内存管理机制" class="headerlink" title="内存管理机制"></a>内存管理机制</h3><h4 id="静态内存分配-编译时确定"><a href="#静态内存分配-编译时确定" class="headerlink" title="静态内存分配-编译时确定"></a>静态内存分配-编译时确定</h4><p>全局变量、静态变量存储在全局数据区。全局数据区又具体分为未初始化数据和已初始化区域。</p>
 <p>本地变量存储在栈中，函数调用时的信息也会存储在栈中。</p>
 <h4 id="动态内存分配-运行时确定"><a href="#动态内存分配-运行时确定" class="headerlink" title="动态内存分配-运行时确定"></a>动态内存分配-运行时确定</h4><p>动态内存分配是在程序运行时在堆上进行的内存分配。</p>
@@ -268,27 +268,14 @@
 <p>指针变量的类型可以确定所指向数据的位数与编码方式，指针变量的值可以确定所指向数据的地址，所以可以将所指向的数据取出。而指针相比按变量名寻址最大的好处是：指针可以指向任何类型、可以指向内存中的任何位置，可以对该区域进行任何修改。但同时这也是指针最大的坏处，如果出现危险行为会引发异常，操作系统会终止你的程序，所以在使用指针时因严格遵循一些规范。</p>
 <p>一个指针的例子：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输出int类型变量的每个字节 (可用于判断大小端)</span></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">0x12345678</span>;</span><br><span class="line"><span class="keyword">char</span> *p = (<span class="keyword">char</span>*)&amp;x;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(x); i ++)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%02X"</span>, *(p + i));</span><br><span class="line"><span class="comment">//输出78563412 (小端存储)</span></span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="指针定义"><a href="#指针定义" class="headerlink" title="指针定义"></a>指针定义</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *intPtr; <span class="comment">//基本类型的指针</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">structPtr</span>;</span> <span class="comment">//复合类型的指针</span></span><br><span class="line"><span class="keyword">int</span> (*arrPtr)[<span class="number">10</span>]; <span class="comment">//数组指针</span></span><br><span class="line"><span class="keyword">int</span> **ptrPtr; <span class="comment">//指针的指针</span></span><br><span class="line"><span class="keyword">void</span> (*funcPtr)(<span class="keyword">int</span>, <span class="keyword">double</span>); <span class="comment">//函数指针</span></span><br></pre></td></tr></table></figure>
-
 <p>指针能指向任何类型，不同类型的指针之间在数值上没有区别（都是某一个地址），区别是该把这个地址存储的数据当做什么看待。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>] = &#123; <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">int</span> (*p)[<span class="number">10</span>] = &amp;a;</span><br><span class="line"><span class="keyword">int</span> *q = (<span class="keyword">int</span>*)p;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d %d"</span>, (*p)[<span class="number">0</span>], *q); <span class="comment">//1 1</span></span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="地址的输出"><a href="#地址的输出" class="headerlink" title="地址的输出"></a>地址的输出</h3><p>可用于debug，判断两个指针所指向的地址是否相同、某个地址的值有没有被修改等等</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>, *p = a;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%p\n%p"</span>, p, &amp;a);</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="指向指针的指针"><a href="#指向指针的指针" class="headerlink" title="指向指针的指针"></a>指向指针的指针</h3><p>普通变量遵守的规则，指针变量也都遵守。</p>
 <p>在指针变量定义的时候，系统也会为它在内存中分配空间，给它一个地址，而指向指针的指针就可以用来存储这个地址，可以通过它来修改指针变量的值（改变所指的地址）。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//交换两个指针的值（可以对比两个int交换的函数，再想想形参实参的区别）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap1</span><span class="params">(<span class="keyword">int</span> *p1, <span class="keyword">int</span> *p2)</span> <span class="comment">//错误</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>* tmp = p1;</span><br><span class="line">    p1 = p2;</span><br><span class="line">    p2 = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap2</span><span class="params">(<span class="keyword">int</span> **p1, <span class="keyword">int</span> **p2)</span> <span class="comment">//正确</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>* tmp = *p1;</span><br><span class="line">    *p1 = *p2;</span><br><span class="line">    *p2 = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>, *p = &amp;a, *q = &amp;b;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, *p, *q); <span class="comment">//1 2</span></span><br><span class="line">    swap1(p, q);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, *p, *q); <span class="comment">//1 2</span></span><br><span class="line">    swap2(&amp;p, &amp;q);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d"</span>, *p, *q); <span class="comment">//2 1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="数组和指针的关系"><a href="#数组和指针的关系" class="headerlink" title="数组和指针的关系"></a>数组和指针的关系</h3><p>多数情况下，编译器隐式地将一个具有数组类型的表达式(如数组名)，转换成指向数组第一个元素的指针。只有如下的几种情况，数组表达式才不会被转换成指针：</p>
 <ul>
 <li>当数组是 <code>sizeof</code> 运算符的操作数时</li>
@@ -297,25 +284,15 @@
 </ul>
 <p>要注意在函数参数中，所有的数组类型都是指针类型。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(a)); <span class="comment">//在64位机器中，输出一定为8，而不是想要的40</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, <span class="keyword">sizeof</span>(a)); <span class="comment">//40</span></span><br><span class="line">    f(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="数组指针和数组元素的指针"><a href="#数组指针和数组元素的指针" class="headerlink" title="数组指针和数组元素的指针"></a>数组指针和数组元素的指针</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> *elemPtr = a; <span class="comment">//数组元素的指针</span></span><br><span class="line"><span class="keyword">int</span> (*arPtr)[<span class="number">10</span>] = &amp;a; <span class="comment">//数组指针</span></span><br></pre></td></tr></table></figure>
-
 <p>数组指针和指向数组第一个元素的指针，在数值上完全相同（都是数组首地址的），但指针所指向的对象不同。对于上面的 $elemPtr$ 来说，它指向的区域大小是 $4Byte$ ，存着一个 $int$ ；对于 $arPtr$ 来说，它指向的区域大小是 $40Byte$，存着一个 $int[10]$，也就是大小为 $10$ 的 $int$ 数组。</p>
 <p>在多维数组传参时（也就是使用指向多维数组元素的指针时），指针类型必须包含除了第一维的所有维的大小，因为只有这样指针才能知道它所指的对象是多大的。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> a[][<span class="number">10</span>])</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>][<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> (*p)[<span class="number">10</span>] = a;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><p>多数情况下，编译器隐式地将一个具有函数类型的表达式(如函数名)，转换成指向函数的指针。</p>
 <p>函数指针的值实际上是函数的入口地址。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span>*, <span class="keyword">const</span> <span class="keyword">void</span>*)</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line"><span class="keyword">int</span> (*cmpPtr)(<span class="keyword">const</span> <span class="keyword">void</span>*, <span class="keyword">const</span> <span class="keyword">void</span>*) = cmp;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *p1, *p2;</span><br><span class="line">    cmp(p1, p2);</span><br><span class="line">    cmpPtr(p1, p2); <span class="comment">//与上面一行作用完全相同</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="相关运算符"><a href="#相关运算符" class="headerlink" title="相关运算符"></a>相关运算符</h3><ul>
-<li><p>取址运算符 $&amp;$ ：得到一个变量的地址。</p>
+<li><p>取址运算符 $\&amp;$ ：得到一个变量的地址。</p>
 </li>
 <li><p>解引用运算符 $*$：从一个地址获取相应对象。获取的对象是什么，不取决于内存中存储的值（只是一串0101），而取决于指针所指向的类型（如何看待这串0101）。</p>
 </li>
@@ -338,7 +315,6 @@
 <li>除 $0$ 错误（补充的，与指针无关）：整数除法或取模时除数为 $0$ ，通常会得到 $3221225620$</li>
 </ul>
 <h2 id="其他一些细节"><a href="#其他一些细节" class="headerlink" title="其他一些细节"></a>其他一些细节</h2><h3 id="指针常量与常量指针"><a href="#指针常量与常量指针" class="headerlink" title="指针常量与常量指针"></a>指针常量与常量指针</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span>* p = &amp;a; <span class="comment">//常量指针</span></span><br><span class="line"><span class="keyword">int</span>* <span class="keyword">const</span> q = &amp;a; <span class="comment">//指针常量</span></span><br><span class="line">*p = <span class="number">2</span>; <span class="comment">//错</span></span><br><span class="line">p = &amp;b; <span class="comment">//对</span></span><br><span class="line">*q = <span class="number">2</span>; <span class="comment">//对</span></span><br><span class="line">q = &amp;b; <span class="comment">//错</span></span><br></pre></td></tr></table></figure>
-
 <p>常量指针：指向“常量”的指针，不能通过这个指针去修改所指的对象</p>
 <p>指针常量：指针本身是常量，一旦初始化便不能指向别的对象</p>
 <h3 id="通用指针"><a href="#通用指针" class="headerlink" title="通用指针"></a>通用指针</h3><p>$void*$ 类型的指针，可以表示任何对象的地址，但仅仅只表示一个地址，不能从中取出对象。</p>
