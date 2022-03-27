@@ -240,7 +240,8 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="指针和内存"><a href="#指针和内存" class="headerlink" title="指针和内存"></a>指针和内存</h1><h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p>C语言类型系统：</p>
+                <h1 id="指针和内存"><a href="#指针和内存" class="headerlink" title="指针和内存"></a>指针和内存</h1><h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p><strong>类型只是看待内存中数据的一个视角</strong></p>
+<p>C语言类型系统：</p>
 <ul>
 <li>变量类型<ul>
 <li>基本类型<ul>
@@ -325,7 +326,11 @@
 <li><p>加运算符 $+$：得到偏移后的地址。注意指针只能与整数相加，而不能与指针相加。并且不是数值上的相加，而是表示指针的偏移，具体偏移多远与指针所指向的类型的大小有关。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">2</span>][<span class="number">10</span>] = &#123; &#123;<span class="number">1</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>&#125; &#125;;</span><br><span class="line"><span class="keyword">int</span> *p = a[<span class="number">0</span>], (*q)[<span class="number">10</span>] = a;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d %d"</span>, *(p + <span class="number">1</span>), *(<span class="keyword">int</span>*)(q + <span class="number">1</span>)); <span class="comment">//2 3</span></span><br><span class="line"><span class="comment">//p + n &lt;==&gt; (unsigned long long)p + n * sizeof(int)</span></span><br><span class="line"><span class="comment">//q + n &lt;==&gt; (unsigned long long)q + n * sizeof(int[10])</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>减运算符 $-$ ：得到两个指针的偏移量。注意指针只能与指针相减，而且要确保两个指针所指的是同一片连续的区域（比如同一个数组的不同位置）。并且也不是数值上的相减，而是得到偏移量，也与指针所指向的类型的大小有关。</p>
+<li><p>减运算符 $-$ ：</p>
+<ul>
+<li>用法1：两个操作数都是指针，得到两个指针的偏移量。要确保两个指针所指的是同一片连续的区域（比如同一个数组的不同位置）。并且也不是数值上的相减，而是得到偏移量，也与指针所指向的类型的大小有关。</li>
+<li>用法2：指针减去整数，用法类似加运算符。</li>
+</ul>
 </li>
 <li><p>类型转换运算符 $(type)$ ：强制类型转换。注意不要把指针转换为整数类型，也不要把整数转换为指针。并且在进行不同类型间指针的赋值时，一定要显式的加上类型转换（除了通用指针$void*$）。</p>
 </li>
